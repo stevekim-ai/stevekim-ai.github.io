@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const povs = [
+  "Clinical AI doesn't fail in the model. It fails at the bedside.",
+  'Stop teaching doctors to prompt. Redesign the workflow instead.',
+  'The best clinical AI PM was never a PM.',
+];
+---
+<BaseLayout title="About — Steve Kim" description="Clinical AI Product Manager with 20 years as the end user in nuclear medicine.">
+  <section class="wrap about prose">
+    <p class="annotation">About</p>
+    <h1>20 years as the end user.</h1>
+
+    <p>
+      I'm a Clinical AI Product Manager. Before I built anything, I spent two decades
+      in a nuclear medicine department — the person on the receiving end of every tool
+      that was supposedly designed for me. Most of them weren't.
+    </p>
+    <p>
+      Now I build clinical tools shaped around how the work actually happens, not how a
+      spec imagines it. I write this build log to keep myself honest about the gap
+      between the two.
+    </p>
+
+    <h2>What I keep coming back to</h2>
+    <ul class="pov-list">
+      {povs.map((line) => <li>{line}</li>)}
+    </ul>
+
+    <h2>Elsewhere</h2>
+    <p>
+      <a href="https://x.com/stevekim_ai">X / @stevekim_ai</a> ·
+      <a href="https://www.youtube.com/@stevekim_ai">YouTube — Build Log</a> ·
+      <a href="mailto:stevegogoting@gmail.com">stevegogoting@gmail.com</a>
+    </p>
+    <p class="annotation credentials">
+      Nuclear medicine · NMTCB · SMG-SNU Boramae Medical Center · Seoul → Global
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .about { padding-block: clamp(2.5rem, 8vw, 5rem); }
+  .pov-list { list-style: none; margin: 0 0 1.2em; padding: 0; }
+  .pov-list li {
+    padding: 0.7rem 0 0.7rem 1.1rem;
+    border-left: 2px solid var(--isotope);
+    margin-bottom: 0.7rem;
+    color: var(--paper);
+  }
+  .credentials { margin-top: 2.5rem; }
+</style>

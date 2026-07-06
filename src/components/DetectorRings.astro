@@ -1,0 +1,22 @@
+---
+// Detector rings — concentric circles, 1px, low opacity, bleeding off the right edge.
+// Decorative background motif. Never fully contained (tokens.json rule).
+---
+<svg class="rings" viewBox="0 0 600 600" fill="none" aria-hidden="true" focusable="false">
+  {[60, 130, 200, 270, 340, 410].map((r) => (
+    <circle cx="600" cy="300" r={r} stroke="var(--paper)" stroke-opacity="0.10" stroke-width="1" />
+  ))}
+  <circle cx="600" cy="300" r="6" fill="var(--isotope)" fill-opacity="0.9" />
+</svg>
+<style>
+  .rings {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    translate: 22% -50%;
+    width: min(60vw, 620px);
+    height: auto;
+    pointer-events: none;
+    z-index: 0;
+  }
+</style>

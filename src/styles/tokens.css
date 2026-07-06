@@ -1,0 +1,31 @@
+/* Generated from brand/tokens.json — Signal Path design system.
+   Do not hand-edit values here; change tokens.json and re-map. */
+:root {
+  /* Color */
+  --teal-deep: #0B3D3D;   /* primary ground / dark surfaces */
+  --teal-dark: #083030;   /* gradient end / shadows */
+  --teal-mid:  #0F6B6B;   /* interactive / links on paper */
+  --paper:     #F3F0E9;   /* light ground / text on teal */
+  --paper-dim: rgba(243, 240, 233, 0.55); /* secondary text on teal */
+  --ink:       #0B3D3D;   /* text on paper */
+  --isotope:   #FF7A3D;   /* single accent — use once or twice, never decorate */
+  --signal-grid: rgba(11, 61, 61, 0.08);  /* hairlines, calibration lines */
+
+  /* Typography */
+  --font-display: "Big Shoulders Display", "Big Shoulders", sans-serif;
+  --font-annotation: "Geist Mono", ui-monospace, monospace;
+  --font-body: "Instrument Sans", system-ui, sans-serif;
+  --font-kr: "Pretendard", var(--font-body);
+
+  /* Scale */
+  --size-display-xl: 64px;
+  --size-display-l: 40px;
+  --size-subhead: 28px;
+  --size-body: 17px;
+  --size-annotation: 12px;
+
+  /* Rhythm */
+  --measure: 68ch;
+  --gutter: clamp(1.25rem, 5vw, 3rem);
+  --tracking-annotation: 0.15em;
+}

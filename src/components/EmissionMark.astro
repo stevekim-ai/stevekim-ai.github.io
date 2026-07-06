@@ -1,0 +1,12 @@
+---
+// Brand mark — emission point: one isotope-orange dot with a thin halo ring.
+interface Props { size?: number; }
+const { size = 22 } = Astro.props;
+---
+<svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" class="emission">
+  <circle cx="12" cy="12" r="9" stroke="var(--paper-dim)" stroke-width="1" />
+  <circle cx="12" cy="12" r="3" fill="var(--isotope)" />
+</svg>
+<style>
+  .emission { display: block; }
+</style>

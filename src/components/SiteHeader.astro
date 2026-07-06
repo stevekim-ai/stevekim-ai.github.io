@@ -1,0 +1,51 @@
+---
+import EmissionMark from './EmissionMark.astro';
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+<header class="site-header">
+  <div class="wrap bar">
+    <a href="/" class="brand" aria-label="Steve Kim — home">
+      <EmissionMark size={20} />
+      <span class="brand-name">Steve Kim</span>
+      <span class="annotation brand-role">Clinical AI PM</span>
+    </a>
+    <nav aria-label="Primary">
+      <a href="/" class:list={["nav-link", { active: isActive('/') }]}>Build Log</a>
+      <a href="/about/" class:list={["nav-link", { active: isActive('/about') }]}>About</a>
+    </nav>
+  </div>
+  <hr class="hairline" />
+</header>
+<style>
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1.1rem;
+  }
+  .brand { display: flex; align-items: center; gap: 0.6rem; border: none; }
+  .brand-name {
+    font-family: var(--font-annotation);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.82rem;
+    color: var(--paper);
+  }
+  .brand-role { display: none; }
+  @media (min-width: 560px) { .brand-role { display: inline; } }
+  nav { display: flex; gap: 1.4rem; }
+  .nav-link {
+    font-family: var(--font-annotation);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.72rem;
+    color: var(--paper-dim);
+    border: none;
+    padding-bottom: 2px;
+  }
+  .nav-link:hover { color: var(--isotope); }
+  .nav-link.active { color: var(--paper); border-bottom: 1px solid var(--isotope); }
+</style>

@@ -1,0 +1,48 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', (p) =>
+    import.meta.env.PROD ? !p.data.draft : true
+  );
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<BaseLayout
+  title={`${post.data.title} — Steve Kim`}
+  description={post.data.description}
+  ogTitle={post.data.ogTitle}
+>
+  <article class="wrap post">
+    <header class="post-head">
+      <p class="annotation">
+        {fmt(post.data.pubDate)}{post.data.pov ? ` · POV ${post.data.pov}` : ''}{post.data.draft ? ' · DRAFT' : ''}
+      </p>
+      <h1>{post.data.title}</h1>
+    </header>
+    <div class="prose" lang={post.data.lang}>
+      <Content />
+    </div>
+    <footer class="post-foot">
+      <hr class="hairline" />
+      <a href="/" class="back annotation">← All build logs</a>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .post { padding-block: clamp(2.2rem, 7vw, 4.5rem); }
+  .post-head { max-width: var(--measure); margin-bottom: 2.2rem; }
+  .post-head h1 { margin-top: 0.6rem; }
+  .post-foot { margin-top: 3rem; }
+  .back { display: inline-block; margin-top: 1.5rem; border: none; }
+</style>

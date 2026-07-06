@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DetectorRings from '../components/DetectorRings.astro';
+
+const all = await getCollection('posts');
+const posts = all
+  .filter((p) => import.meta.env.PROD ? !p.data.draft : true)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' });
+---
+<BaseLayout title="Steve Kim — Clinical AI Build Log">
+  <section class="hero">
+    <DetectorRings />
+    <div class="wrap hero-inner">
+      <p class="annotation kicker">Clinical AI Product Manager</p>
+      <h1>Clinical AI doesn't fail<br />in the model.<br /><span class="accent">It fails at the bedside.</span></h1>
+      <p class="lede">
+        20 years inside a nuclear medicine department, now building the tools I once
+        needed. This is a build log — what gets ignored, what gets used, and why.
+      </p>
+    </div>
+  </section>
+
+  <hr class="hairline" />
+
+  <section class="wrap feed">
+    <p class="annotation feed-label">Build Log</p>
+    {posts.length === 0 ? (
+      <p class="empty">First entry in progress. Check back shortly.</p>
+    ) : (
+      <ul class="post-list">
+        {posts.map((p) => (
+          <li class="post-row">
+            <a href={`/build-log/${p.id}/`} class="post-link">
+              <span class="annotation post-date">
+                {fmt(p.data.pubDate)}{p.data.draft ? ' · DRAFT' : ''}
+              </span>
+              <span class="post-title">{p.data.title}</span>
+              <span class="post-desc">{p.data.description}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { position: relative; overflow: hidden; }
+  .hero-inner { position: relative; z-index: 1; padding-block: clamp(3rem, 10vw, 6.5rem); }
+  .kicker { margin: 0 0 1.2rem; }
+  .hero h1 { max-width: 16ch; }
+  .accent { color: var(--isotope); }
+  .lede {
+    max-width: 46ch;
+    margin-top: 1.6rem;
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    color: var(--paper);
+  }
+
+  .feed { padding-block: 2.6rem 3.4rem; }
+  .feed-label { display: block; margin-bottom: 1.6rem; }
+  .empty { color: var(--paper-dim); }
+  .post-list { list-style: none; margin: 0; padding: 0; }
+  .post-row + .post-row { border-top: 1px solid var(--signal-grid); }
+  .post-row { border-top: 1px solid rgba(243, 240, 233, 0.12); }
+  .post-link {
+    display: grid;
+    gap: 0.35rem;
+    padding: 1.5rem 0;
+    border: none;
+  }
+  .post-date { color: var(--paper-dim); }
+  .post-title {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    line-height: 1.02;
+    color: var(--paper);
+    transition: color 0.15s ease;
+  }
+  .post-link:hover .post-title { color: var(--isotope); }
+  .post-desc { color: var(--paper-dim); max-width: 60ch; }
+</style>
